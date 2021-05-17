@@ -7,7 +7,7 @@ import Auth from './components/Auth';
 import MainPage from './components/MainPage';
 
 const client = new ApolloClient({
-  uri: 'https://react-graphql210516.herokuapp.com/graphql/',
+  uri: 'https://react-graphql210516.herokuapp.com/graphql',
   headers: {
     authorization: localStorage.getItem('token')
       ? `JWT ${localStorage.getItem('token')}`
