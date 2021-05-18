@@ -57,3 +57,5 @@ const MainPage = () => {
 };
 
 export default MainPage;
+    if (localStorage.getItem('token')) {
+      const decodedToken = jwtDecode(localStorage.getItem('token'));
