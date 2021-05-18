@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { GET_DEPTS, GET_EMPLOYEES } from '../queries';
 import { Grid } from '@material-ui/core';
+import EmployeeList from './EmployeeList';
 import jwtDecode from 'jwt-decode'; //JWTの期限を設定するためのライブラリ
 
 const MainPage = () => {
@@ -52,6 +53,13 @@ const MainPage = () => {
           }}
         />
       </h1>
+      <Grid container>
+        <Grid item xs={5}>
+          <EmployeeList dataEmployees={dataEmployees} />
+        </Grid>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={3}></Grid>
+      </Grid>
     </div>
   );
 };
