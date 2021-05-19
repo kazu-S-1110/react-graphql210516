@@ -9,7 +9,7 @@ const StateContextProvider = (props) => {
   const [editedId, setEditedId] = useState('');
 
   return (
-    <StateContextProvider
+    <StateContext.Provider
       value={{
         name,
         setName,
@@ -23,8 +23,8 @@ const StateContextProvider = (props) => {
         setEditedId,
       }}
     >
-      (props.children)
-    </StateContextProvider>
+      {props.children}
+    </StateContext.Provider>
   );
 };
 

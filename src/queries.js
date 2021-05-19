@@ -50,8 +50,10 @@ export const GET_DEPTS = gql`
 `
 
 export const CREATE_EMPLOYEE = gql`
-  mutation($name: String, $joinYear : Int, $department:ID!) {
-    createEmployee(input: {name: $name, joinYear: $joinYear, department: $department}) {
+mutation($name: String!, $joinYear: Int!, $department: ID!) {
+  createEmployee(
+    input: { name: $name, joinYear: $joinYear, department: $department }
+  ) {
       employee {
         id
         name
@@ -66,8 +68,15 @@ export const CREATE_EMPLOYEE = gql`
 `
 
 export const UPDATE_EMPLOYEE = gql`
-  mutation ($id: ID!, $name: String!, $joinYear: Int!, $department: ID!) {
-    updateEmployee(input: {id: $id, name: $name, joinYear: $joinYear, department: $department}) {
+mutation($id: ID!, $name: String!, $joinYear: Int!, $department: ID!) {
+  updateEmployee(
+    input: {
+      id: $id
+      name: $name
+      joinYear: $joinYear
+      department: $department
+    }
+  ) {
       employee {
         id
         name
