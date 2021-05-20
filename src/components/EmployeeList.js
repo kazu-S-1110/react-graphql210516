@@ -2,14 +2,22 @@ import React, { useContext } from 'react';
 import styles from './EmployeeList.module.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import { StateContext } from '../context/StateContext';
 import { useMutation } from '@apollo/client';
 import { GET_EMPLOYEES, DELETE_EMPLOYEE } from '../queries';
 import { Edit } from '@material-ui/icons';
 
 const EmployeeList = ({ dataEmployees }) => {
-  const { setName, setJoinYear, setDeptName, setSelectedDept, setEditedId } =
-    useContext(StateContext);
+  const {
+    setName,
+    setJoinYear,
+    setDeptName,
+    setSelectedDept,
+    setEditedId,
+    dataSingleEmployee,
+    getSingleEmployee,
+  } = useContext(StateContext);
   const [deleteEmployee] = useMutation(DELETE_EMPLOYEE, {
     refetchQueries: [{ query: GET_EMPLOYEES }],
   });
@@ -50,6 +58,20 @@ const EmployeeList = ({ dataEmployees }) => {
                     setName(empl.node.name);
                     setJoinYear(empl.node.joinYear);
                     setSelectedDept(empl.node.department.id);
+                  }}
+                />
+                <DragIndicatorIcon
+                  className={styles.employeeList__detail}
+                  onClick={async () => {
+                    try {
+                      await getSingleEmployee({
+                        variables: {
+                          id: empl.node.id,
+                        },
+                      });
+                    } catch (err) {
+                      alert(err.message);
+                    }
                   }}
                 />
               </div>
