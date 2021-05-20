@@ -5,17 +5,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import { StateContext } from '../context/StateContext';
 import { useMutation } from '@apollo/client';
 import { GET_EMPLOYEES, DELETE_EMPLOYEE } from '../queries';
+import { Edit } from '@material-ui/icons';
 
 const EmployeeList = ({ dataEmployees }) => {
-  const {
-    setName,
-    setJoinYear,
-    setDeptName,
-    setSelectedDept,
-    setEditedId,
-    dataSingleEmployee,
-    getSingleEmployee,
-  } = useContext(StateContext);
+  const { setName, setJoinYear, setDeptName, setSelectedDept, setEditedId } =
+    useContext(StateContext);
   const [deleteEmployee] = useMutation(DELETE_EMPLOYEE, {
     refetchQueries: [{ query: GET_EMPLOYEES }],
   });
@@ -37,7 +31,7 @@ const EmployeeList = ({ dataEmployees }) => {
               <div>
                 <DeleteIcon
                   className={styles.employeeList__delete}
-                  onclick={async () => {
+                  onClick={async () => {
                     try {
                       await deleteEmployee({
                         variables: {
@@ -47,6 +41,15 @@ const EmployeeList = ({ dataEmployees }) => {
                     } catch (err) {
                       alert(err.message);
                     }
+                  }}
+                />
+                <EditIcon
+                  className={styles.employeeList__edit}
+                  onClick={() => {
+                    setEditedId(empl.node.id);
+                    setName(empl.node.name);
+                    setJoinYear(empl.node.joinYear);
+                    setSelectedDept(empl.node.department.id);
                   }}
                 />
               </div>
