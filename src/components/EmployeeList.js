@@ -49,6 +49,13 @@ const EmployeeList = ({ dataEmployees }) => {
                     } catch (err) {
                       alert(err.message);
                     }
+                    if (empl.node.id === dataSingleEmployee?.employee.id) {
+                      await getSingleEmployee({
+                        variables: {
+                          id: empl.node.id,
+                        },
+                      });
+                    }
                   }}
                 />
                 <EditIcon

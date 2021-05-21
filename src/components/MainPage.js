@@ -5,6 +5,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { GET_DEPTS, GET_EMPLOYEES } from '../queries';
 import { Grid } from '@material-ui/core';
 import EmployeeList from './EmployeeList';
+import EmployeeDetails from './EmployeeDetails';
 import EmployeeCreate from './EmployeeCreate';
 import jwtDecode from 'jwt-decode'; //JWTの期限を設定するためのライブラリ
 
@@ -59,7 +60,9 @@ const MainPage = () => {
         <Grid item xs={5}>
           <EmployeeList dataEmployees={dataEmployees} />
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={4}>
+          <EmployeeDetails />
+        </Grid>
         <Grid item xs={3}></Grid>
       </Grid>
     </div>
