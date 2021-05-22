@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { useMutation } from '@apollo/client';
 import { CREATE_DEPT, DELETE_DEPT, GET_DEPTS, GET_EMPLOYEES } from '../queries';
 
-const DeptList = () => {
+const DeptList = ({ dataDepts }) => {
   const { deptName, setDeptName } = useContext(StateContext);
   const [createDept] = useMutation(CREATE_DEPT, {
     refetchQueries: [{ query: GET_DEPTS }],
@@ -41,6 +41,31 @@ const DeptList = () => {
       >
         New dept
       </button>
+      <ul className={styles.deptList__list}>
+        {dataDepts &&
+          dataDepts.allDepartments &&
+          dataDepts.allDepartments.edges.map((empl) => (
+            <li className={styles.deptList__item} key={empl.node.id}>
+              <span>{empl.node.deptName}</span>
+              <div>
+                <DeleteIcon
+                  className={styles.deptList__delete}
+                  onClick={async () => {
+                    try {
+                      await deleteDept({
+                        variables: {
+                          id: empl.node.id,
+                        },
+                      });
+                    } catch (err) {
+                      alert(err.message);
+                    }
+                  }}
+                />
+              </div>
+            </li>
+          ))}
+      </ul>
     </>
   );
 };
