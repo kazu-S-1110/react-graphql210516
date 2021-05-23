@@ -1,7 +1,7 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const CREATE_USER = gql`
-  mutation($username: String!, $password: String!) {
+  mutation ($username: String!, $password: String!) {
     createUser(input: { username: $username, password: $password, email: "" }) {
       user {
         id
@@ -9,15 +9,15 @@ export const CREATE_USER = gql`
       }
     }
   }
-`
+`;
 
 export const GET_TOKEN = gql`
-  mutation($username: String!, $password: String!) {
+  mutation ($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
     }
   }
-`
+`;
 export const GET_EMPLOYEES = gql`
   query {
     allEmployees {
@@ -34,27 +34,27 @@ export const GET_EMPLOYEES = gql`
       }
     }
   }
-`
+`;
 
 export const CREATE_DEPT = gql`
-  mutation($deptName: String!) {
-    createDept(input:{ deptName: $deptName}){
-      department{
+  mutation ($deptName: String!) {
+    createDept(input: { deptName: $deptName }) {
+      department {
         id
         deptName
       }
     }
   }
-`
+`;
 export const DELETE_DEPT = gql`
-  mutation($id:ID!){
-    deleteDept(input:{id: $id}){
-      department{
+  mutation ($id: ID!) {
+    deleteDept(input: { id: $id }) {
+      department {
         id
       }
     }
   }
-`
+`;
 
 export const GET_DEPTS = gql`
   query {
@@ -67,13 +67,13 @@ export const GET_DEPTS = gql`
       }
     }
   }
-`
+`;
 
 export const CREATE_EMPLOYEE = gql`
-mutation($name: String!, $joinYear: Int!, $department: ID!) {
-  createEmployee(
-    input: { name: $name, joinYear: $joinYear, department: $department }
-  ) {
+  mutation ($name: String!, $joinYear: Int!, $department: ID!) {
+    createEmployee(
+      input: { name: $name, joinYear: $joinYear, department: $department }
+    ) {
       employee {
         id
         name
@@ -85,18 +85,18 @@ mutation($name: String!, $joinYear: Int!, $department: ID!) {
       }
     }
   }
-`
+`;
 
 export const UPDATE_EMPLOYEE = gql`
-mutation($id: ID!, $name: String!, $joinYear: Int!, $department: ID!) {
-  updateEmployee(
-    input: {
-      id: $id
-      name: $name
-      joinYear: $joinYear
-      department: $department
-    }
-  ) {
+  mutation ($id: ID!, $name: String!, $joinYear: Int!, $department: ID!) {
+    updateEmployee(
+      input: {
+        id: $id
+        name: $name
+        joinYear: $joinYear
+        department: $department
+      }
+    ) {
       employee {
         id
         name
@@ -108,27 +108,46 @@ mutation($id: ID!, $name: String!, $joinYear: Int!, $department: ID!) {
       }
     }
   }
-`
+`;
 
 export const DELETE_EMPLOYEE = gql`
-mutation($id:ID!){
-  deleteEmployee(input:{id:$id}){
-    employee{id}
+  mutation ($id: ID!) {
+    deleteEmployee(input: { id: $id }) {
+      employee {
+        id
+      }
+    }
   }
-}
-`
+`;
 
 export const GET_SINGLE_EMPLOYEE = gql`
-  query($id:ID!) {
-    employee(id:$id){
+  query ($id: ID!) {
+    employee(id: $id) {
       id
       name
       joinYear
-      department{
+      department {
         id
         deptName
       }
     }
   }
+`;
 
-`
+export const SEARCH_EMPLOYEE = gql`
+  query ($name: String!) {
+    allEmployees(name_Icontains: $name) {
+      edges {
+        node {
+          id
+          name
+          joinYear
+          department {
+            id
+            deptName
+          }
+        }
+      }
+    }
+  }
+`;

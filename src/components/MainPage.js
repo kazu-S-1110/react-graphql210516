@@ -9,6 +9,9 @@ import DeptList from './DeptList';
 import EmployeeDetails from './EmployeeDetails';
 import EmployeeCreate from './EmployeeCreate';
 import jwtDecode from 'jwt-decode'; //JWTの期限を設定するためのライブラリ
+import FilterByName from './FilterByName';
+import FilterByAnd from './FilterByAnd';
+import Pagination from './Pagination';
 
 const MainPage = () => {
   const {
@@ -69,9 +72,15 @@ const MainPage = () => {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={7}></Grid>
+        <Grid item xs={2}>
+          <FilterByName />
+        </Grid>
+        <Grid item xs={3}>
+          <FilterByAnd />
+        </Grid>
+        <Grid item xs={7}>
+          <Pagination />
+        </Grid>
       </Grid>
     </div>
   );
