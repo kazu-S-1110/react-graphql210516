@@ -11,7 +11,46 @@ const FilterByName = () => {
       fetchPolicy: 'network-only',
     });
 
-  return <div></div>;
+  return (
+    <>
+      <h3>Filter by Employee Name</h3>
+      <input
+        type="text"
+        placeholder="employee name ?"
+        value={searchByName}
+        onChange={(e) => {
+          setSearchByName(e.target.value);
+        }}
+      />
+      <div>
+        <SearchIcon
+          className={styles.filterByName__search}
+          onClick={async () => {
+            await searchEmployee({
+              variables: {
+                name: searchByName,
+              },
+            });
+            setSearchByName('');
+          }}
+        />
+      </div>
+      <ul className={styles.filterByName__list}>
+        {errorSearch && <h3>{errorSearch.message}</h3>}
+        {dataSearch &&
+          dataSearch.allEmployees &&
+          dataSearch.allEmployees.edges.map((empl) => (
+            <li className={styles.filterByName__item} key={empl.node.id}>
+              {empl.node.name}
+              {' / '}
+              {empl.node.joinYear}
+              {' / '}
+              {empl.node.department.deptName}
+            </li>
+          ))}
+      </ul>
+    </>
+  );
 };
 
 export default FilterByName;
