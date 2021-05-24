@@ -68,6 +68,21 @@ const FilterByAnd = () => {
           }}
         />
       </div>
+
+      <ul className={styles.filterByAnd__list}>
+        {errorSearchAnd && <h3>{errorSearchAnd.message}</h3>}
+        {dataSearchAnd &&
+          dataSearchAnd.allEmployees &&
+          dataSearchAnd.allEmployees.edges.map((empl) => {
+            <li className={styles.filterByAnd__item} key={empl.node.id}>
+              {empl.node.name}
+              {' / '}
+              {empl.node.joinYear}
+              {' / '}
+              {empl.node.department.deptName}
+            </li>;
+          })}
+      </ul>
     </>
   );
 };
