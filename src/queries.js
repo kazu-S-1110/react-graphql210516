@@ -157,7 +157,7 @@ export const SEARCH_AND_EMPLOYEE = gql`
     allEmployees(
       name_Icontains: $name
       joinYear: $joinYear
-      department_DeptName_Icontains: $deptName
+      department_DeptName_Icontains: $dept
     ) {
       edges {
         node {
