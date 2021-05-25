@@ -1,20 +1,17 @@
-export const SEARCH_AND_EMPLOYEE = gql`
-  query($name: String, $joinYear: Int, $dept: String) {
-    allEmployees(
-      name_Icontains: $name
-      joinYear: $joinYear
-      department_DeptName_Icontains: $dept
-    ) {
+export const PAGINATE_MORE_EMPLOYEE = gql`
+  query($first: Int, $after: String) {
+    allDepartments(first: $first, after: $after) {
       edges {
+        cursor
         node {
           id
-          name
-          joinYear
-          department {
-            id
-            deptName
-          }
+          deptName
         }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
       }
     }
   }
