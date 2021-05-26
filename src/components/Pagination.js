@@ -81,7 +81,44 @@ const Pagination = () => {
               ))}
           </ul>
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={4}>
+          <h3>Paginate by last</h3>
+          <input
+            type="number"
+            min="0"
+            value={last}
+            onChange={(e) => {
+              setLast(e.target.value);
+            }}
+          />
+          <div>
+            <SearchIcon
+              className={styles.pagination__search}
+              onClick={async () => {
+                await paginateLast({
+                  variables: {
+                    last: last,
+                  },
+                });
+                setLast(0);
+              }}
+            />
+          </div>
+          <ul className={styles.pagination__list}>
+            {errorLast && <h3>{errorLast.message}</h3>}
+            {dataLast &&
+              dataLast.allEmployees &&
+              dataLast.allEmployees.edges.map((empl) => (
+                <li className={styles.pagination__item} key={empl.node.id}>
+                  {empl.node.name}
+                  {' / '}
+                  {empl.node.joinYear}
+                  {' / '}
+                  {empl.node.department.deptName}
+                </li>
+              ))}
+          </ul>
+        </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
     </div>
