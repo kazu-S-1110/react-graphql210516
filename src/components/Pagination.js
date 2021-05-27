@@ -119,7 +119,40 @@ const Pagination = () => {
               ))}
           </ul>
         </Grid>
-        <Grid item xs={4}></Grid>
+        <Grid item xs={4}>
+          <h3>Pagination load more</h3>
+          <ul>
+            {errorPages && <h3>{errorPages.message}</h3>}
+            {dataPages &&
+              dataPages.allDepartments &&
+              dataPages.allDepartments.edges.map((empl) => (
+                <li className={styles.pagination__item} key={empl.node.id}>
+                  {empl.node.deptName}
+                </li>
+              ))}
+          </ul>
+          {dataPages.allDepartments.pageInfo.hasNextPage && (
+            <button
+              onClick={() => {
+                fetchMore({
+                  variables: {
+                    first: NUM_PAGES,
+                    after: dataPages.allDepartments.pageInfo.endCursor || null,
+                  },
+                  updateQuery: (prevLoad, { fetchMoreResult }) => {
+                    fetchMoreResult.allDepartments.edges = [
+                      ...prevLoad.allDepartments.edges,
+                      ...fetchMoreResult.allDepartments.edges,
+                    ];
+                    return fetchMoreResult;
+                  },
+                });
+              }}
+            >
+              Load more
+            </button>
+          )}
+        </Grid>
       </Grid>
     </div>
   );
